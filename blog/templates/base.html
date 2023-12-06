@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+            background-color: #f8f9fa;
+        }
+
+        nav {
+            background-color: #343a40;
+        }
+
+        .navbar-brand,
+        .navbar-toggler,
+        .navbar-nav .nav-item .nav-link {
+            color: #ffffff;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #ffffff;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #f8f9fa;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        /* Additional Styles */
+        h2 {
+            color: #343a40;
+        }
+
+        .blog-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .blog-link:hover {
+            text-decoration: underline;
+        }
+
+        .blog-excerpt {
+            color: #555;
+        }
+
+        .like-btn {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #ffffff;
+        }
+
+        .like-btn:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+        
+
+
+    body {
+        padding-top: 56px;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+        color: #007bff;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #218838;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+    }
+</style>
+
+    
+
+    <title>{% block title %}Your Blog{% endblock %}</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog_list' %}">All Blogs</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

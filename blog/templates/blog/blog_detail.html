@@ -1,0 +1,33 @@
+<!-- templates/blog/blog_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ blog.title }}</h2>
+  <p>{{ blog.content }}</p>
+  <p>Author: {{ blog.author.username }}</p>
+  <p>Tags: {% for tag in blog.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  <p>Likes: {{ blog.likes.count }}</p>
+  <a href="{% url 'like_blog' blog.id %}">Like</a>
+
+  <h3>Comments</h3>
+  {% for comment in comments %}
+    <div class="comment">
+      <p>{{ comment.user.username }} says:</p>
+      <p>{{ comment.text }}</p>
+      <p>Likes: {{ comment.likes.count }}</p>
+      <a href="{% url 'like_comment' comment.id %}">Like</a>
+    </div>
+  {% endfor %}
+
+  <h3>Add a Comment</h3>
+  <form method="post" action="{% url 'comment_on_blog' blog.id %}">
+    {% csrf_token %}
+    <textarea name="comment_text" rows="4" cols="50" required></textarea>
+    <br>
+    <button type="submit">Post Comment</button>
+  </form>
+  
+  <h3>Share this Blog</h3>
+  <a href="{% url 'share_blog' blog.id %}">Share via Email</a>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!-- templates/home.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    
+
+    <h3>Latest Blogs</h3>
+    {% for blog in blogs %}
+        <div class="blog-item">
+            <h4><a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a></h4>
+            <p>{{ blog.content|truncatewords:50 }}</p>
+            <p>Author: {{ blog.author.username }}</p>
+            <p>Tags: {% for tag in blog.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+            <p>Likes: {{ blog.likes.count }}</p>
+            <a href="{% url 'like_blog' blog.id %}">Like</a>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+          </div>
+    {% endfor %}
+{% endblock %}
